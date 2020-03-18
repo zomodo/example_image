@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>云计算作业提交系统</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/scroll.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">云计算作业提交系统</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label }}：{{ field }}
+                        <span>{{ field.errors }}</span>
+                    </div>
+                {% endfor %}
+
+{#                <div class="form-group">#}
+{#                    {{ form.category.label }}：{{ form.category }}#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    {{ form.name.label }}：{{ form.name }}#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    {{ form.image.label }}：{{ form.image }}#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    {{ form.content.label }}：{{ form.content }}#}
+{#                </div>#}
+
+                <input class="btn" style="width: 90px" type="submit" value="提交">
+            </form>
+        </div>
+
+        <div class="col-4">
+            <div class="out">
+                <ul class="animate">
+                    {% for post in posts %}
+                        <li>
+                        {{ post.category }}的{{ post.name }}于{{ post.created_time }}提交了作业.
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- 提交成功消息提示框1 -->
+        <!--
+        {% if messages %}
+            <ul class="message">
+
+            {% for message in messages %}
+                {% if message.tags %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% else %}
+                    <li>{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+
+            </ul>
+        {% endif %}
+        -->
+
+        <!-- 提交成功消息提示框2 -->
+        {% if messages %}
+            {% for message in messages %}
+                <script>
+                alert('{{ message }}');
+                </script>
+            {% endfor %}
+        {% endif %}
+
+
+
+    </div>
+</div>
+
+</body>
+</html>

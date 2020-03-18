@@ -1,0 +1,5 @@
+django==2.2.11
+pillow==7.0.0
+dj_pagination==2.4.0
+django-simpleui==3.9.1
+zipstream==1.1.4

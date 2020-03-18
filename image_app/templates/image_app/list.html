@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{% load pagination_tags %}
+{% autopaginate posts 9 %}
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        .img-thumbnail{
+            width: 25%;
+            height: 240px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="thumbnail">
+            {% for post in posts %}
+
+                <img class="img-thumbnail" src="{{ post.image.url }}" alt="无法加载">
+                <a class="btn" href="{% url 'download' post.image.url %}">下载</a>
+
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% paginate %}
+
+</div>
+
+</body>
+</html>
