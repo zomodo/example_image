@@ -22,7 +22,7 @@ from image_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index,name='index'),
+    path('',views.index),
     path('index/',views.index,name='index'),
     path('list/',views.image_list,name='list'),
     path('download/<path:image_path>',views.download,name='download'),

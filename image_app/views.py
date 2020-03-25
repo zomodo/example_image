@@ -18,15 +18,15 @@ def index(request):
             messages.success(request,'提交成功！')
             # messages.add_message(request,messages.SUCCESS,'提交成功！')
             return HttpResponseRedirect(reverse('index'))
+        else:
+            posts=PostModel.objects.all()[:10].only('category', 'name', 'created_time')
+            context={'form':form,'posts':posts}
+            return render(request, 'image_app/index.html', context)
     else:
         form=PostForm()
-
-    posts=PostModel.objects.all()[:10].only('category','name','created_time')
-    context={
-        'form':form,
-        'posts':posts,
-    }
-    return render(request,'image_app/index.html',context)
+        posts=PostModel.objects.all()[:10].only('category','name','created_time')
+        context={'form':form,'posts':posts}
+        return render(request,'image_app/index.html',context)
 
 
 def image_list(request):

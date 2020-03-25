@@ -14,32 +14,23 @@
     </div>
 
     <div class="row">
-        <div class="col-8">
+        <div class="col-4">
             <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 {% for field in form %}
                     <div class="form-group">
                         {{ field.label }}：{{ field }}
-                        <span>{{ field.errors }}</span>
+                        <span>{{ field.errors.0 }}</span>
                     </div>
                 {% endfor %}
 
-{#                <div class="form-group">#}
-{#                    {{ form.category.label }}：{{ form.category }}#}
-{#                </div>#}
-{#                <div class="form-group">#}
-{#                    {{ form.name.label }}：{{ form.name }}#}
-{#                </div>#}
-{#                <div class="form-group">#}
-{#                    {{ form.image.label }}：{{ form.image }}#}
-{#                </div>#}
-{#                <div class="form-group">#}
-{#                    {{ form.content.label }}：{{ form.content }}#}
-{#                </div>#}
-
-                <input class="btn" style="width: 90px" type="submit" value="提交">
+                <input class="btn" style="width: 80px" type="submit" value="提交">
             </form>
+        </div>
+
+        <div class="col-4">
+            <img src="" id="show" alt="" style="width: 100%">
         </div>
 
         <div class="col-4">
@@ -80,10 +71,22 @@
             {% endfor %}
         {% endif %}
 
-
-
     </div>
 </div>
+
+<script>
+    var img=document.getElementById('id_image');
+    img.onchange=preview;
+
+    function preview() {
+        var r = new FileReader();
+        f = document.getElementById('id_image').files[0];
+        r.readAsDataURL(f);
+        r.onload = function (e) {
+            document.getElementById('show').src = this.result;
+        };
+    }
+</script>
 
 </body>
 </html>
