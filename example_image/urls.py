@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index),
     path('index/',views.index,name='index'),
-    path('list/',views.image_list,name='list'),
+    path('image/',views.show_image,name='show_image'),
+    path('get_img/',views.get_img,name='get_img'),
     path('download/<path:image_path>',views.download,name='download'),
 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

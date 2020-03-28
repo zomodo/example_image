@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import FileResponse
 from django.contrib import messages
+from django.http import JsonResponse
 from urllib import parse
 from django.utils.encoding import escape_uri_path
 
@@ -29,10 +30,20 @@ def index(request):
         return render(request,'image_app/index.html',context)
 
 
-def image_list(request):
-    posts=PostModel.objects.all()
-    context={'posts':posts}
-    return render(request,'image_app/list.html',context)
+def show_image(request):
+    return render(request,'image_app/image.html')
+
+def get_img(request):
+    begin_nid=int(request.GET.get('nid'))
+    end_nid=int(begin_nid)+10
+    img_list=PostModel.objects.values('id','image','name','content')[begin_nid:end_nid]
+    img_list=list(img_list)
+    ret={
+        'status':True,
+        'img_list':img_list,
+    }
+    # JsonResponse默认传入字典，若是要传list、tuple需要加safe=False
+    return JsonResponse(ret)
 
 
 def download(request,image_path):
